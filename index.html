@@ -102,7 +102,8 @@
       <h2>My Virtual Dog</h2>
       <p class="section-note">
         Pick a breed, give your dog a name, then press Adopt.
-        Feeding and playing both make your dog happier.
+        Feeding and playing make your dog happier, and Next Day makes it grow up.
+        Your dog is kept in this browser, so it comes back after a refresh.
       </p>
 
       <!-- The form shows its own message, so novalidate turns off the browser popup -->
@@ -154,7 +155,16 @@
             <dd id="dog-day"></dd>
 
             <dt>Growth stage</dt>
-            <dd id="dog-stage"></dd>
+            <dd>
+              <!-- The words state the stage, so the bar is only decoration -->
+              <span id="dog-stage"></span>
+              <span class="growth-track" aria-hidden="true">
+                <span id="growth-fill"></span>
+              </span>
+              <span class="growth-legend" aria-hidden="true">
+                <span>Puppy</span><span>Young Dog</span><span>Adult Dog</span>
+              </span>
+            </dd>
 
             <dt>Happiness</dt>
             <dd>
@@ -166,9 +176,15 @@
           <div class="dog-actions">
             <button id="feed-button" class="care-button" type="button">Feed</button>
             <button id="play-button" class="care-button" type="button">Play</button>
+            <button id="next-day-button" class="care-button" type="button">Next Day</button>
+            <button id="start-over-button" class="quiet-button" type="button">Start Over</button>
           </div>
 
           <p id="dog-note" class="dog-note"></p>
+
+          <p class="storage-note">
+            Your dog is saved in this browser, so it is still here after a refresh.
+          </p>
         </div>
       </div>
     </section>

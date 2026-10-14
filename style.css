@@ -249,6 +249,11 @@ h2 {
   box-shadow: 0 2px 6px rgba(80, 60, 40, 0.07);
 }
 
+/* The form is hidden while a dog is adopted, and shown again after Start Over */
+.adopt-form[hidden] {
+  display: none;
+}
+
 .form-row {
   margin-bottom: 18px;
 }
@@ -397,10 +402,43 @@ h2 {
   transition: width 0.25s ease;
 }
 
+/* Growth bar: same idea as the happiness bar, filled in three steps */
+.growth-track {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: 14px;
+  margin-top: 6px;
+  background-color: #f0e6d7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#growth-fill {
+  display: block;
+  height: 100%;
+  width: 33%;
+  background-color: var(--grass);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+/* The three stage names printed under the growth bar */
+.growth-legend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
 .dog-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  margin-top: 18px;
 }
 
 .care-button {
@@ -420,10 +458,36 @@ h2 {
   background-color: #eaf4e8;
 }
 
+/* Start Over is quieter than the other buttons because it throws the dog away */
+.quiet-button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 22px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.quiet-button:hover,
+.quiet-button:focus {
+  border-color: #b23b1e;
+  color: #b23b1e;
+  background-color: #fdf3ef;
+}
+
 .dog-note {
   margin: 14px 0 0;
   font-weight: bold;
   color: var(--grass-dark);
+}
+
+.storage-note {
+  margin: 14px 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
 }
 
 /* ---------- Laptop and larger screens ---------- */
@@ -444,6 +508,11 @@ h2 {
 
   .dog-details {
     flex: 1 1 auto;
+  }
+
+  /* On a wide screen Start Over can sit away from the other buttons */
+  .quiet-button {
+    margin-left: auto;
   }
 }
 

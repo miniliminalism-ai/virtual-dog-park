@@ -86,7 +86,8 @@ setUpPatButtons();
 
 /* ===========================================================
    4. My Virtual Dog
-   Adopt a dog, then feed it or play with it.
+   Adopt a dog, feed it, play with it, and let it grow up.
+   The dog is kept in localStorage so it survives a refresh.
    =========================================================== */
 
 // Small numbers kept in one place so they are easy to change.
@@ -94,6 +95,12 @@ var MAX_NAME_LENGTH = 20;
 var MAX_HAPPINESS = 100;
 var HAPPINESS_STEP = 10;
 var START_HAPPINESS = 50;
+var DAY_HAPPINESS_LOSS = 5;
+var MIN_HAPPINESS = 0;
+
+// Where the dog is saved inside the browser. One key holds one dog.
+// Open DevTools > Application > Local Storage to see it.
+var STORAGE_KEY = "virtualDogParkPetV1";
 
 // The picture that belongs to each breed.
 // The breed names here must match the values in the <option> tags.
@@ -101,6 +108,13 @@ var BREED_ART = {
   "Beagle": "assets/beagle.svg",
   "Golden Retriever": "assets/golden-retriever.svg",
   "Poodle": "assets/poodle.svg"
+};
+
+// How full the growth bar is for each stage.
+var GROWTH_WIDTH = {
+  "Puppy": "33%",
+  "Young Dog": "66%",
+  "Adult Dog": "100%"
 };
 
 // The adopted dog is kept in this one object.
@@ -169,18 +183,14 @@ function setFormMessage(text, isError) {
 }
 
 // Which growth stage a dog is at on a given day.
-// A brand new dog is on day 1, so it starts as a Puppy.
 function getGrowthStage(day) {
-  if (day < 30) {
+  if (day === 1) {
     return "Puppy";
   }
-  if (day < 180) {
-    return "Young dog";
+  if (day <= 3) {
+    return "Young Dog";
   }
-  if (day < 365) {
-    return "Adult";
-  }
-  return "Senior";
+  return "Adult Dog";
 }
 
 /* ---------- Showing the dog ---------- */
@@ -189,39 +199,56 @@ function getGrowthStage(day) {
 function showDogCard() {
   document.getElementById("dog-title").textContent = myDog.name;
   document.getElementById("dog-breed").textContent = myDog.breed;
-  document.getElementById("dog-day").textContent = "Day " + myDog.day;
-  document.getElementById("dog-stage").textContent = getGrowthStage(myDog.day);
 
   // Swap in the picture that matches the chosen breed.
   var art = document.getElementById("dog-art");
   art.src = BREED_ART[myDog.breed];
   art.alt = "Illustration of a " + myDog.breed;
 
-  document.getElementById("dog-card").hidden = false;
+  // Hide the adoption form while a dog lives here, and show the dog instead.
+  document.getElementById("adopt-form").hidden = true;
   document.getElementById("no-dog-note").hidden = true;
+  document.getElementById("dog-card").hidden = false;
 
-  updateHappiness();
+  refreshDog();
 }
 
-// Redraws the happiness number and the happiness bar.
+// Redraws the parts of the card that change, then saves the dog.
+function refreshDog() {
+  updateGrowth();
+  updateHappiness();
+  saveDog();
+}
+
+// Day number, growth stage and the growth bar.
+function updateGrowth() {
+  var stage = getGrowthStage(myDog.day);
+
+  document.getElementById("dog-day").textContent = "Day " + myDog.day;
+  document.getElementById("dog-stage").textContent = stage;
+  document.getElementById("growth-fill").style.width = GROWTH_WIDTH[stage];
+}
+
+// The happiness number, the happiness bar and the note underneath.
 function updateHappiness() {
-  var label = document.getElementById("dog-happiness");
-  var bar = document.getElementById("happiness-bar");
   var note = document.getElementById("dog-note");
 
-  label.textContent = myDog.happiness + " / " + MAX_HAPPINESS;
-  bar.style.width = myDog.happiness + "%";
+  document.getElementById("dog-happiness").textContent =
+    myDog.happiness + " / " + MAX_HAPPINESS;
+  document.getElementById("happiness-bar").style.width = myDog.happiness + "%";
 
   if (myDog.happiness >= MAX_HAPPINESS) {
     note.textContent = myDog.name + " is as happy as a dog can be!";
+  } else if (myDog.happiness <= MIN_HAPPINESS) {
+    note.textContent = myDog.name + " is unhappy. Try Feed or Play.";
   } else {
     note.textContent = "";
   }
 }
 
-/* ---------- Feed and Play ---------- */
+/* ---------- Feed, Play and Next Day ---------- */
 
-// Both buttons do the same thing: add 10 happiness.
+// Feed and Play both add 10 happiness.
 // Math.min keeps the result at 100 even if we add 10 to 95.
 function addHappiness() {
   if (myDog === null) {
@@ -229,7 +256,102 @@ function addHappiness() {
   }
 
   myDog.happiness = Math.min(myDog.happiness + HAPPINESS_STEP, MAX_HAPPINESS);
-  updateHappiness();
+  refreshDog();
+}
+
+// Next Day makes the dog one day older and five happiness points less happy.
+// Math.max keeps happiness from going below zero.
+function nextDay() {
+  if (myDog === null) {
+    return;
+  }
+
+  myDog.day = myDog.day + 1;
+  myDog.happiness = Math.max(myDog.happiness - DAY_HAPPINESS_LOSS, MIN_HAPPINESS);
+  refreshDog();
+}
+
+/* ---------- Saving and loading the dog ---------- */
+
+// Turns the dog object into text and puts it in the browser's storage.
+function saveDog() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(myDog));
+  } catch (error) {
+    // A few browsers block storage, for example in private mode.
+    // The game still works, it just cannot remember the dog.
+  }
+}
+
+// Checks that some saved text really looks like one of our dogs.
+function isUsableDog(dog) {
+  return dog !== null
+    && typeof dog === "object"
+    && typeof dog.name === "string"
+    && typeof dog.breed === "string"
+    && typeof dog.day === "number"
+    && typeof dog.happiness === "number"
+    && BREED_ART[dog.breed] !== undefined;
+}
+
+// Looks for a dog that was saved in this browser earlier and brings it back.
+function restoreSavedDog() {
+  var savedText = null;
+
+  try {
+    savedText = localStorage.getItem(STORAGE_KEY);
+  } catch (error) {
+    return;   // storage is switched off in this browser
+  }
+
+  if (savedText === null) {
+    return;   // no dog has been saved yet, so keep the adoption form
+  }
+
+  var dog = null;
+
+  try {
+    dog = JSON.parse(savedText);
+  } catch (error) {
+    dog = null;   // the saved text was damaged
+  }
+
+  if (isUsableDog(dog)) {
+    myDog = dog;
+    showDogCard();
+  } else {
+    localStorage.removeItem(STORAGE_KEY);   // throw away unusable text
+  }
+}
+
+/* ---------- Starting over ---------- */
+
+// Deletes the saved dog, but only after the visitor says yes.
+function startOver() {
+  if (myDog === null) {
+    return;
+  }
+
+  // window.confirm shows a small box with OK and Cancel.
+  // It gives back true for OK and false for Cancel.
+  var sure = window.confirm(
+    "Start over? " + myDog.name + " will be deleted from this browser. This cannot be undone."
+  );
+
+  if (sure === false) {
+    return;   // the visitor cancelled, so the dog stays
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+  myDog = null;
+
+  // Put the page back the way it looked before adopting.
+  document.getElementById("dog-card").hidden = true;
+  document.getElementById("adopt-form").hidden = false;
+  document.getElementById("no-dog-note").hidden = false;
+  document.getElementById("form-message").textContent = "";
+  document.getElementById("dog-name").value = "";
+  document.getElementById("dog-name").focus();
 }
 
 /* ---------- Connect the buttons ---------- */
@@ -237,4 +359,10 @@ function addHappiness() {
 document.getElementById("adopt-form").addEventListener("submit", adoptDog);
 document.getElementById("feed-button").addEventListener("click", addHappiness);
 document.getElementById("play-button").addEventListener("click", addHappiness);
+document.getElementById("next-day-button").addEventListener("click", nextDay);
+document.getElementById("start-over-button").addEventListener("click", startOver);
+
+// On a fresh page load, bring back any dog that was saved earlier.
+restoreSavedDog();
+
 
