@@ -59,6 +59,7 @@ function patDog(event) {
 }
 
 // Show the running total on the page.
+// The count belongs to this visit only: it starts again at 0 after a refresh.
 function showPatCount() {
   var word = "dogs";
 
@@ -67,7 +68,7 @@ function showPatCount() {
   }
 
   document.getElementById("pat-count").textContent =
-    "You have patted " + patCount + " " + word + " today.";
+    "You have patted " + patCount + " " + word + ".";
 }
 
 /* ---------- 3. Footer year ---------- */

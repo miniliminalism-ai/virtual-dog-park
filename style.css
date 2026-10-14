@@ -423,15 +423,20 @@ h2 {
   transition: width 0.25s ease;
 }
 
-/* The three stage names printed under the growth bar */
+/* The three stage names printed under the growth bar.
+   Each name sits in its own third so the words line up with the bar steps. */
 .growth-legend {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   max-width: 340px;
   margin-top: 4px;
   font-size: 0.75rem;
   color: var(--ink-soft);
+}
+
+.growth-legend span {
+  flex: 1 1 0;
+  text-align: center;
 }
 
 .dog-actions {
