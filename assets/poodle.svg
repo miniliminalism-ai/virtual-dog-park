@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-labelledby="poodleTitle poodleDesc">
+  <title id="poodleTitle">Illustration of a Poodle</title>
+  <desc id="poodleDesc">A simple cartoon drawing of a poodle's head: a cream coloured coat,
+  a round cluster of curls on top of the head, long curly ears and a narrow muzzle.</desc>
+
+  <!-- background -->
+  <rect width="200" height="200" fill="#f9f1f9"/>
+  <circle cx="100" cy="104" r="82" fill="#efe2ef"/>
+
+  <!-- long ears with a curly edge -->
+  <ellipse cx="52" cy="118" rx="16" ry="36" fill="#d8c6b6"/>
+  <ellipse cx="148" cy="118" rx="16" ry="36" fill="#d8c6b6"/>
+  <circle cx="52" cy="150" r="10" fill="#d8c6b6"/>
+  <circle cx="148" cy="150" r="10" fill="#d8c6b6"/>
+
+  <!-- head -->
+  <ellipse cx="100" cy="106" rx="45" ry="44" fill="#e6d7c9"/>
+
+  <!-- topknot: a cluster of curls -->
+  <circle cx="100" cy="42" r="13" fill="#f4ece4"/>
+  <circle cx="100" cy="62" r="17" fill="#f4ece4"/>
+  <circle cx="76" cy="58" r="13" fill="#f4ece4"/>
+  <circle cx="124" cy="58" r="13" fill="#f4ece4"/>
+  <circle cx="66" cy="78" r="10" fill="#f4ece4"/>
+  <circle cx="134" cy="78" r="10" fill="#f4ece4"/>
+
+  <!-- narrow muzzle -->
+  <ellipse cx="100" cy="128" rx="21" ry="18" fill="#f8f2ec"/>
+
+  <!-- nose -->
+  <ellipse cx="100" cy="119" rx="9" ry="7" fill="#33302e"/>
+  <ellipse cx="97" cy="117" rx="2.5" ry="1.8" fill="#726d69"/>
+
+  <!-- mouth -->
+  <path d="M100 127v5" stroke="#33302e" stroke-width="2.5" fill="none"/>
+  <path d="M100 132c-3.5 4.5-9 4.5-11.5 1" stroke="#33302e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M100 132c3.5 4.5 9 4.5 11.5 1" stroke="#33302e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- eyes -->
+  <circle cx="82" cy="98" r="6" fill="#2f2b28"/>
+  <circle cx="118" cy="98" r="6" fill="#2f2b28"/>
+  <circle cx="84" cy="96" r="2" fill="#ffffff"/>
+  <circle cx="120" cy="96" r="2" fill="#ffffff"/>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+     role="img" aria-labelledby="beagleTitle beagleDesc">
+  <title id="beagleTitle">Illustration of a Beagle</title>
+  <desc id="beagleDesc">A simple cartoon drawing of a beagle's head: long brown floppy ears,
+  a tan face, a white stripe on the forehead and a white muzzle.</desc>
+
+  <!-- background -->
+  <rect width="200" height="200" fill="#f3f7e9"/>
+  <circle cx="100" cy="104" r="82" fill="#e2eed4"/>
+
+  <!-- long floppy ears (drawn first so they sit behind the head) -->
+  <ellipse cx="48" cy="112" rx="19" ry="42" fill="#7a4a25"/>
+  <ellipse cx="152" cy="112" rx="19" ry="42" fill="#7a4a25"/>
+
+  <!-- head -->
+  <ellipse cx="100" cy="98" rx="50" ry="48" fill="#d9a76a"/>
+
+  <!-- white blaze down the middle of the face -->
+  <path d="M100 50c-6 0-10 6-10 15v27h20V65c0-9-4-15-10-15z" fill="#fdf6ec"/>
+
+  <!-- white muzzle -->
+  <ellipse cx="100" cy="126" rx="27" ry="21" fill="#fdf6ec"/>
+
+  <!-- nose -->
+  <ellipse cx="100" cy="115" rx="10" ry="8" fill="#2b2b2b"/>
+  <ellipse cx="97" cy="113" rx="3" ry="2" fill="#6f6f6f"/>
+
+  <!-- mouth -->
+  <path d="M100 124v6" stroke="#2b2b2b" stroke-width="2.5" fill="none"/>
+  <path d="M100 130c-4 5-10 5-13 1" stroke="#2b2b2b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M100 130c4 5 10 5 13 1" stroke="#2b2b2b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- eyes -->
+  <circle cx="77" cy="90" r="6.5" fill="#33241a"/>
+  <circle cx="123" cy="90" r="6.5" fill="#33241a"/>
+  <circle cx="79" cy="88" r="2" fill="#ffffff"/>
+  <circle cx="125" cy="88" r="2" fill="#ffffff"/>
+
+  <!-- eyebrows -->
+  <path d="M70 78q7-5 14-1" stroke="#7a4a25" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M130 78q-7-5-14-1" stroke="#7a4a25" stroke-width="3" fill="none" stroke-linecap="round"/>
+</svg>

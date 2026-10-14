@@ -1,0 +1,231 @@
+/* ===========================================================
+   Virtual Dog Park - stylesheet
+   Mobile first: the rules below make a narrow phone layout.
+   The @media block at the bottom widens things for laptops.
+   =========================================================== */
+
+/* ---------- 1. Basic setup ---------- */
+
+:root {
+  --cream: #fffaf1;
+  --card: #ffffff;
+  --ink: #33261c;
+  --ink-soft: #6b5a4c;
+  --grass: #4e8b4a;
+  --grass-dark: #3a6a37;
+  --sun: #f0a63c;
+  --line: #e8ddcd;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ---------- 2. Header ---------- */
+
+.site-header {
+  padding: 32px 20px 28px;
+  text-align: center;
+  background-color: var(--grass);
+  color: #ffffff;
+  border-bottom: 6px solid var(--grass-dark);
+}
+
+.site-header h1 {
+  margin: 0 0 8px;
+  font-size: 1.9rem;
+  letter-spacing: 0.5px;
+}
+
+.greeting {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fdf1d8;
+}
+
+.intro {
+  max-width: 34em;
+  margin: 0 auto;
+  color: #eef7ec;
+}
+
+/* ---------- 3. Page layout ---------- */
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 20px 10px;
+}
+
+h2 {
+  margin: 0 0 6px;
+  font-size: 1.5rem;
+  color: var(--grass-dark);
+}
+
+.section-note {
+  margin: 0 0 24px;
+  color: var(--ink-soft);
+}
+
+/* ---------- 4. Breed cards ---------- */
+
+.breed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.breed-card {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: 0 2px 6px rgba(80, 60, 40, 0.07);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.breed-art {
+  display: block;
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+}
+
+.breed-info h3 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  color: var(--ink);
+  border-bottom: 2px solid var(--sun);
+  padding-bottom: 6px;
+}
+
+/* A simple two-column list for Size / Personality / Everyday care */
+.breed-facts {
+  margin: 0 0 16px;
+}
+
+.breed-facts dt {
+  font-weight: bold;
+  color: var(--grass-dark);
+  margin-top: 12px;
+}
+
+.breed-facts dt:first-child {
+  margin-top: 0;
+}
+
+.breed-facts dd {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- 5. The "Pat this dog" button ---------- */
+
+.pat-button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 18px;
+  border: 2px solid var(--grass);
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: var(--grass-dark);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pat-button:hover,
+.pat-button:focus {
+  background-color: #eaf4e8;
+}
+
+/* Style added by JavaScript once a dog has been patted */
+.breed-card.is-patted {
+  border-color: var(--sun);
+  box-shadow: 0 3px 12px rgba(240, 166, 60, 0.35);
+}
+
+.breed-card.is-patted .pat-button {
+  background-color: var(--sun);
+  border-color: var(--sun);
+  color: #ffffff;
+}
+
+.pat-count {
+  margin: 26px 0 0;
+  padding: 12px 16px;
+  text-align: center;
+  font-weight: bold;
+  color: var(--grass-dark);
+  background-color: #eef7ec;
+  border-radius: var(--radius);
+}
+
+/* ---------- 6. Footer ---------- */
+
+.site-footer {
+  margin-top: 36px;
+  padding: 22px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+/* ---------- 7. Laptop and larger screens ---------- */
+
+@media (min-width: 760px) {
+  body {
+    font-size: 18px;
+  }
+
+  .site-header {
+    padding: 48px 24px 40px;
+  }
+
+  .site-header h1 {
+    font-size: 2.4rem;
+  }
+
+  /* Lay the three cards out side by side */
+  .breed-list {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .breed-card {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .breed-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+
+  /* Push the button to the bottom so the cards line up neatly */
+  .pat-button {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+}
