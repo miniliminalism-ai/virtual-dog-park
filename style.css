@@ -229,3 +229,221 @@ h2 {
     align-self: flex-start;
   }
 }
+
+/* ===========================================================
+   8. My Virtual Dog
+   =========================================================== */
+
+.my-dog {
+  margin-top: 46px;
+}
+
+/* ---------- The adopt form ---------- */
+
+.adopt-form {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 22px;
+  box-shadow: 0 2px 6px rgba(80, 60, 40, 0.07);
+}
+
+.form-row {
+  margin-bottom: 18px;
+}
+
+/* The label sits on its own line above the control */
+.form-row label {
+  display: block;
+  font-weight: bold;
+  color: var(--grass-dark);
+  margin-bottom: 6px;
+}
+
+.form-row select,
+.form-row input {
+  width: 100%;
+  max-width: 340px;
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 12px;
+  color: var(--ink);
+  background-color: #ffffff;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+}
+
+.form-row select:focus,
+.form-row input:focus {
+  outline: none;
+  border-color: var(--grass);
+}
+
+.field-hint {
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+.adopt-button {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 28px;
+  border: 2px solid var(--grass);
+  border-radius: 999px;
+  background-color: var(--grass);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.adopt-button:hover,
+.adopt-button:focus {
+  background-color: var(--grass-dark);
+  border-color: var(--grass-dark);
+}
+
+/* Success message by default, red when JavaScript adds is-error */
+.form-message {
+  margin: 14px 0 0;
+  font-weight: bold;
+  color: var(--grass-dark);
+}
+
+.form-message.is-error {
+  color: #b23b1e;
+}
+
+/* ---------- The dog card ---------- */
+
+.no-dog-note {
+  margin: 0;
+  padding: 14px 16px;
+  color: var(--ink-soft);
+  background-color: #f5eee2;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+}
+
+.dog-card {
+  background-color: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(80, 60, 40, 0.07);
+}
+
+/* Keep this rule: it lets the hidden attribute beat the display rules below */
+.dog-card[hidden] {
+  display: none;
+}
+
+.dog-art {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  margin: 0 auto 16px;
+  border-radius: 10px;
+}
+
+.dog-title {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  color: var(--ink);
+  border-bottom: 2px solid var(--sun);
+  padding-bottom: 6px;
+}
+
+.dog-stats {
+  margin: 0 0 18px;
+}
+
+.dog-stats dt {
+  font-weight: bold;
+  color: var(--grass-dark);
+  margin-top: 12px;
+}
+
+.dog-stats dt:first-child {
+  margin-top: 0;
+}
+
+.dog-stats dd {
+  margin: 2px 0 0;
+  color: var(--ink-soft);
+}
+
+/* Happiness bar: the track is the pale rail, the bar is filled in by JavaScript */
+.happiness-track {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: 14px;
+  margin-top: 6px;
+  background-color: #f0e6d7;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#happiness-bar {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background-color: var(--sun);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.dog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.care-button {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 10px 24px;
+  border: 2px solid var(--grass);
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: var(--grass-dark);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.care-button:hover,
+.care-button:focus {
+  background-color: #eaf4e8;
+}
+
+.dog-note {
+  margin: 14px 0 0;
+  font-weight: bold;
+  color: var(--grass-dark);
+}
+
+/* ---------- Laptop and larger screens ---------- */
+
+@media (min-width: 760px) {
+  /* Picture on the left, details on the right */
+  .dog-card {
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  .dog-art {
+    flex: 0 0 180px;
+    margin: 0;
+  }
+
+  .dog-details {
+    flex: 1 1 auto;
+  }
+}
+

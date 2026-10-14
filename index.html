@@ -96,6 +96,82 @@
 
       <p id="pat-count" class="pat-count" data-page-node-id="8B7zEHRDopX5UCMXS2Lw4j">You have patted 0 dogs today.</p>
     </section>
+
+    <!-- ===== My Virtual Dog: adopt, feed and play ===== -->
+    <section class="my-dog">
+      <h2>My Virtual Dog</h2>
+      <p class="section-note">
+        Pick a breed, give your dog a name, then press Adopt.
+        Feeding and playing both make your dog happier.
+      </p>
+
+      <!-- The form shows its own message, so novalidate turns off the browser popup -->
+      <form id="adopt-form" class="adopt-form" novalidate>
+
+        <div class="form-row">
+          <label for="breed-choice">Breed</label>
+          <select id="breed-choice" name="breed">
+            <option value="Beagle">Beagle</option>
+            <option value="Golden Retriever">Golden Retriever</option>
+            <option value="Poodle">Poodle</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="dog-name">Dog name</label>
+          <input type="text"
+                 id="dog-name"
+                 name="dogName"
+                 maxlength="20"
+                 autocomplete="off"
+                 placeholder="e.g. Biscuit"
+                 aria-describedby="name-hint form-message">
+          <p id="name-hint" class="field-hint">
+            Up to 20 characters. Letters, numbers and spaces are all fine.
+          </p>
+        </div>
+
+        <button class="adopt-button" type="submit">Adopt</button>
+
+        <!-- JavaScript writes the success or error message in here -->
+        <p id="form-message" class="form-message" role="status" aria-live="polite"></p>
+      </form>
+
+      <p id="no-dog-note" class="no-dog-note">You have not adopted a dog yet.</p>
+
+      <!-- The dog card stays hidden until a dog has been adopted -->
+      <div id="dog-card" class="dog-card" hidden>
+        <img id="dog-art" class="dog-art" src="assets/beagle.svg" alt="">
+
+        <div class="dog-details">
+          <h3 id="dog-title" class="dog-title">My dog</h3>
+
+          <dl class="dog-stats">
+            <dt>Breed</dt>
+            <dd id="dog-breed"></dd>
+
+            <dt>Day</dt>
+            <dd id="dog-day"></dd>
+
+            <dt>Growth stage</dt>
+            <dd id="dog-stage"></dd>
+
+            <dt>Happiness</dt>
+            <dd>
+              <span id="dog-happiness"></span>
+              <span class="happiness-track"><span id="happiness-bar"></span></span>
+            </dd>
+          </dl>
+
+          <div class="dog-actions">
+            <button id="feed-button" class="care-button" type="button">Feed</button>
+            <button id="play-button" class="care-button" type="button">Play</button>
+          </div>
+
+          <p id="dog-note" class="dog-note"></p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ===== Footer ===== -->
